@@ -1,0 +1,16 @@
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/data:/app/data
+    environment:
+      - STEAM_API_KEY=${STEAM_API_KEY}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}

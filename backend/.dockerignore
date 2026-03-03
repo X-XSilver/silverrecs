@@ -1,0 +1,6 @@
+venv8/
+data/
+scripts/
+__pycache__/
+.env
+.git

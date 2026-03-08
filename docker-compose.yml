@@ -14,3 +14,4 @@ services:
     environment:
       - STEAM_API_KEY=${STEAM_API_KEY}
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - FRONTEND_URL=${FRONTEND_URL}

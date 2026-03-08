@@ -1,14 +1,15 @@
 import sqlite3
-import fasttext
+import compress_fasttext
 import numpy as np
 import faiss
+import os
 
 scripts_folder = os.path.dirname(os.path.abspath(__file__))
 root_folder = os.path.dirname(scripts_folder)
 data_folder = os.path.join(root_folder, "data")
 
 DB_PATH = os.path.join(data_folder, "steam_games.db")
-MODEL_PATH = os.path.join(data_folder, "cc.en.300.bin")
+MODEL_PATH = os.path.join(data_folder, "cc.en.300.compressed.bin")
 INDEX_FILE = os.path.join(data_folder, "game_index.bin")
 VECTOR_DIM = 300
 
@@ -16,7 +17,7 @@ VECTOR_DIM = 300
 def build_index():
 
     print("Loading fastText model... (this may take a moment)")
-    ft_model = fasttext.load_model(MODEL_PATH)
+    ft_model = compress_fasttext.models.CompressedFastTextKeyedVectors.load(MODEL_PATH)
 
 
     print("Connecting to database...")
@@ -44,7 +45,7 @@ def build_index():
         safe_tags = tags if tags else ""
         sentence = f"{safe_title} {safe_tags}".replace("\n", " ").strip()
 
-        vector = ft_model.get_sentence_vector(sentence)
+        vector = get_sentence_vector(ft_model, sentence)
 
 
         id_buffer.append(appid)
@@ -73,6 +74,16 @@ def add_batch(index, ids, vectors):
 
     index.add_with_ids(vectors_np, ids_np)
 
+def get_sentence_vector(model, text):
+    
+    words = text.split()
+
+    word_vecs = [model[word] for word in words if word in model]
+
+    if not word_vecs:
+        return np.zeros(model.vector_size)
+    
+    return np.mean(word_vecs, axis=0)
 
 if __name__ == "__main__":
     build_index()

@@ -1,5 +1,6 @@
 import faiss
 import fasttext
+import compress_fasttext
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -22,7 +23,7 @@ async def lifespan(app: FastAPI):
     data_folder = os.path.join(root_folder, "data")
 
     models.index = faiss.read_index(os.path.join(data_folder, "game_index.bin"))
-    models.ft_model = fasttext.load_model(os.path.join(data_folder, "cc.en.300.bin"))
+    models.ft_model = compress_fasttext.models.CompressedFastTextKeyedVectors.load(os.path.join(data_folder, "cc.en.300.compressed.bin"))
 
     yield
 

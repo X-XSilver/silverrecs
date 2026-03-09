@@ -3,6 +3,9 @@ services:
     build: ./frontend
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - ./frontend/certs:/etc/nginx/certs:ro
     depends_on:
       - backend
   backend:

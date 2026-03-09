@@ -20,7 +20,7 @@ export const useAuthStore = defineStore('auth', {
 
             if(hash.includes('token=')) {
 
-                const frontend_url = import.meta.env.FRONTEND_URL;
+                const frontend_url = import.meta.env.VITE_FRONTEND_URL;
                 const url = new URL(hash.replace('#', frontend_url));
                 const extractedToken = url.searchParams.get('token');
 

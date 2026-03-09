@@ -8,10 +8,11 @@ const auth = useAuthStore();
 
 const userTop5 = ref([]);
 
+const backend_url = import.meta.env.VITE_API_URL;
 const loadInitGames = async () => {
 
     try {
-        const path = `/api/load_user/${auth.steamId}`;
+        const path = `${backend_url}/api/load_user/${auth.steamId}`;
 
         const response = await axios.get(path)
         //console.log(response.data.slice(0, 5))
@@ -34,7 +35,7 @@ const getRecs = async (appid, title, tags) => {
     //userTop5.value = userTop5.value.filter(game => game.appid === appid)
 
     try {
-        const path = `/api/gen_recs/${appid}`
+        const path = `${backend_url}/api/gen_recs/${appid}`
         const response = await axios.get(path, {
             params: {
                 title: title,

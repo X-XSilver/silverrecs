@@ -7,7 +7,7 @@ const defaultRecs = () => {
 
 const loginWithSteam = () => {
 
-    const backend_url = "http://138.197.68.251";//import.meta.env.VITE_API_URL;
+    const backend_url = import.meta.env.VITE_API_URL;
     const steam_openid_url = "https://steamcommunity.com/openid/login"
     const params = new URLSearchParams({
         "openid.ns": "http://specs.openid.net/auth/2.0",

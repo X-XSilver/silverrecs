@@ -47,4 +47,4 @@ async def verify_steam(request: Request):
     
     return_point_url = f"{frontend_url}/#/verify_steam?token={token}"
 
-    return RedirectResponse(url=return_point_url)
+    return RedirectResponse(url=return_point_url, status_code=302)

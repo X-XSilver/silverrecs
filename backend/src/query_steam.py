@@ -152,6 +152,8 @@ async def get_image(appid):
 def get_game_data(appids):
     game_data = []
 
+    api_url = os.environ.get("API_URL")
+
     for i in range(0, len(appids)):
         
         appid = appids[i]
@@ -161,7 +163,7 @@ def get_game_data(appids):
             "title": get_title(appid),
             "tags": get_tags(appid),
             "description": get_description(appid),
-            "image": f"http://localhost:8000/api/game-cover/{appid}"
+            "image": f"{api_url}/api/game-cover/{appid}"
             }
 
         game_data.append({"id": i+1, "data": game_print})

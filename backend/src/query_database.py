@@ -3,12 +3,10 @@ import os
 
 
 
-def get_game_data(appids):
-    game_data = []
+def get_game_data(faiss_row_indices, current_appid, exclude_ids):
     
-    placeholders = ", ".join("?" for _ in appids)
+    game_data = []
 
-    query = f"SELECT * FROM games WHERE appid IN ({placeholders})"
 
     src_folder = os.path.dirname(os.path.abspath(__file__))
     root_folder = os.path.dirname(src_folder)
@@ -16,26 +14,42 @@ def get_game_data(appids):
 
     data_base_path = os.path.join(data_folder, "steam_games.db")
     
+   
     with sqlite3.connect(data_base_path) as conn:
         
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
 
-        cursor.execute(query, appids)
-        results = [dict(row) for row in cursor.fetchall()]
-        #print(results)
-    i = 0
-    for game in results:
+        for row_index in faiss_row_indices:
 
-        game_print = {
-            "appid": game['appid'],
-            "title": game['title'],
-            "tags": game['tags'] if len(game['tags']) > 0 else "No Tags",
-            "description": game['description'] if len(game['description']) > 0 else "No Description",
-            "image": game['image']
+            cursor.execute("SELECT * FROM games WHERE appid = ?", (row_index,))
+            row = cursor.fetchone()
+
+            if not row:
+                continue
+            
+            game = dict(row)
+            fetched_appid= game['appid']
+
+
+            if fetched_appid == current_appid:
+                continue
+            
+            if fetched_appid in exclude_ids:
+                print(f"Skipping seen game {game['title']}")
+                continue
+
+            game_print = {
+                "appid": game['appid'],
+                "title": game['title'],
+                "tags": game['tags'] if len(game['tags']) > 0 else "No Tags",
+                "description": game['description'] if len(game['description']) > 0 else "No Description",
+                "image": game['image']
             }
 
-        game_data.append({"id": i+1, "data": game_print})
-        i = i + 1
+            game_data.append({"id": len(game_data) + 1, "data": game_print})
+
+            if len(game_data) == 5:
+                break
 
     return game_data

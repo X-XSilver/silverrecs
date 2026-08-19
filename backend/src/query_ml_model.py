@@ -1,6 +1,7 @@
 import numpy as np
 from num2words import num2words
 from fastapi import APIRouter, Query
+from typing import Optional
 from .query_database import get_game_data
 from .vectors_helper import create_sentence, prepare_query
 
@@ -19,7 +20,14 @@ models = AIModelStore()
 async def get_recs(
     appid: int,
     title: str = Query(...),
-    tags: str = Query("")):
+    tags: str = Query(""),
+    exclude: Optional[str] = None):
+
+    exclude_ids = []
+
+    if exclude:
+        exclude_ids = [int(x) for x in exclude.split(",") if x.isdigit()]
+    
 
     #sentence = f"{title} {tags}".replace( ",", "")
     sentence = create_sentence(appid, tags)
@@ -28,10 +36,12 @@ async def get_recs(
     vector_2d = prepare_query(models.ft_model, sentence)
 
 
-    distance, indices = models.index.search(vector_2d, 6)
+    distance, indices = models.index.search(vector_2d, 50)
 
-    nearest_ids = [int(idx) for idx in indices[0] if int(idx) != int(appid)][:5]
+    all_nearest_row_indices = [int(idx) for idx in indices[0]]
 
-    print(f"Near Games: {nearest_ids}")
+    print(f"Scanning 50 FAISS positions for fresh matches...")
 
-    return get_game_data(nearest_ids)
+    fresh_recs = get_game_data(all_nearest_row_indices, appid, exclude_ids)
+
+    return fresh_recs

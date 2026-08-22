@@ -3,7 +3,7 @@ import fasttext
 import compress_fasttext
 import os
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+#from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from dotenv import load_dotenv, find_dotenv
 
@@ -35,17 +35,17 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 
-origins = os.getenv("ALLOWED_ORIGINS", "http://127.0.0.1, http://localhost:5173, https://silverrecs.pages.dev, https://silverrecs.com, https://www.silverrecs.com")
+#origins = os.getenv("ALLOWED_ORIGINS", "http://127.0.0.1, http://localhost:5173, https://silverrecs.pages.dev, https://silverrecs.com, https://www.silverrecs.com")
 
-origins_list = [origin.strip() for origin in origins.split(",")]
+#origins_list = [origin.strip() for origin in origins.split(",")]
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins_list,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+#app.add_middleware(
+#    CORSMiddleware,
+#    allow_origins=origins_list,
+#    allow_credentials=True,
+#    allow_methods=["*"],
+#    allow_headers=["*"],
+#)
 
 
 app.include_router(steam_api_router)

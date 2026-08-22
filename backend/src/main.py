@@ -37,9 +37,11 @@ app = FastAPI(lifespan=lifespan)
 
 origins = os.getenv("ALLOWED_ORIGINS", "http://127.0.0.1, http://localhost:5173, https://silverrecs.pages.dev, https://silverrecs.com, https://www.silverrecs.com")
 
+origins_list = [origin.strip() for origin in origins.split(",")]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=origins_list,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

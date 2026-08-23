@@ -43,8 +43,22 @@ async def verify_steam(request: Request):
 
     token = create_access_token(steam_id)
 
-    frontend_url = os.getenv("FRONTEND_URL", "http://localhost")
+    forwarded_host = request.headers.get("x-forwarded-host") or request.headers.get("host")
+
+
+    scheme = request.headers.get("x-forwarded-proto", "https")
+    if "localhost" in str(forwarded_host) or "127.0.0.1" in str(forwarded_host):
+        scheme = "http"
     
-    return_point_url = f"{frontend_url}/#/verify_steam?token={token}"
+
+    if forwarded_host and "silverrecs.pages.dev" in  forwarded_host:
+        frontend_base = "https://pages.dev"
+    elif forwarded_host and "silverrecs.com" on forwarded_host:
+        frontend_base = "https://silverrecs.com"
+    else:
+        frontend_base = f"{scheme}://{forwarded_host}" if forwarded_host else "https://silverrecs.com"
+    
+    
+    return_point_url = f"{frontend_base}/#/verify_steam?token={token}"
 
     return RedirectResponse(url=return_point_url, status_code=302)

@@ -26,7 +26,10 @@ const loadInitGames = async () => {
     isLoading.value = true;
 
     try {
-        const path = `${backend_url}/api/load_user/${auth.steamId}`;
+        
+        const timestamp = new Date().getTime();
+
+        const path = `${backend_url}/api/load_user/${auth.steamId}?cb=${timestamp}`;
 
         const response = await axios.get(path)
         //console.log(response.data.slice(0, 5))

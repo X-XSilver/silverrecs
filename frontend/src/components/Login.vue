@@ -9,10 +9,13 @@ const loginWithSteam = () => {
 
     const backend_url = import.meta.env.VITE_API_URL;
     const steam_openid_url = "https://steamcommunity.com/openid/login"
+
+    const current_frontend = window.location.origin;
+
     const params = new URLSearchParams({
         "openid.ns": "http://specs.openid.net/auth/2.0",
         "openid.mode": "checkid_setup",
-        "openid.return_to": `${backend_url}/api/auth/steam_login`,
+        "openid.return_to": `${backend_url}/api/auth/steam_login?fr=${current_frontend}`,
         "openid.realm": `${backend_url}/api`,
         "openid.identity": "http://specs.openid.net/auth/2.0/identifier_select",
         "openid.claimed_id": "http://specs.openid.net/auth/2.0/identifier_select"

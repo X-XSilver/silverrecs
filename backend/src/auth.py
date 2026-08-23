@@ -44,14 +44,9 @@ async def verify_steam(request: Request):
 
     token = create_access_token(steam_id)
 
-    origin_raw = request.headers.get("referer") or request.headers.get('origin')
+    frontend_base = request.query_params.get("fr")
 
-    if origin_raw:
-
-        parsed_url = urlparse(origin_raw)
-
-        frontend_base = f"{parsed_url.scheme}://{parsed_url.netloc}"
-    else:
+    if not frontend_base:
 
         forwarded_host = request.headers.get("x-forwarded-host") or request.headers.get("host")
 

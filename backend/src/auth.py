@@ -51,9 +51,9 @@ async def verify_steam(request: Request):
         scheme = "http"
     
 
-    if forwarded_host and "silverrecs.pages.dev" in  forwarded_host:
-        frontend_base = "https://pages.dev"
-    elif forwarded_host and "silverrecs.com" on forwarded_host:
+    if forwarded_host and "silverrecs.pages.dev" in forwarded_host:
+        frontend_base = "https://silverrecs.pages.dev"
+    elif forwarded_host and "silverrecs.com" in forwarded_host:
         frontend_base = "https://silverrecs.com"
     else:
         frontend_base = f"{scheme}://{forwarded_host}" if forwarded_host else "https://silverrecs.com"

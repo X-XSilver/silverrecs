@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import RedirectResponse
 from jose import jwt
 from datetime import datetime, timedelta
+from urllib.parse import urlparse
 import requests
 import os
 

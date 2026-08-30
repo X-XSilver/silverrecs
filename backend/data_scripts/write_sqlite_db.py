@@ -1,4 +1,5 @@
 import sqlite3
+import ijson
 import json
 import os
 
@@ -28,23 +29,31 @@ def tag_str(tags: dict) -> str:
 data_set_path = os.path.join(data_folder, "games.json")
 
 with open(data_set_path, 'r', encoding="utf8") as f:
-    data = json.load(f)
+    
+    batch = []
+    games_added = 0
 
-to_insert = [
-    (
-        app_id,
-        item.get('name'),
-        item.get('short_description'),
-        tag_str(item.get('tags')),
-        item.get('header_image')
-    )
-    for app_id, item in data.items()
-]
+    for app_id, item in ijson.kvitems(f, ''):
+        
+        batch.append((
+            app_id,
+            item.get('name'),
+            item.get('short_description'),
+            tag_str(item.get('tags')),
+            item.get('header_image')
+        ))
 
-cursor.executemany(
-    'INSERT OR REPLACE INTO games (appid, title, description, tags, image) VALUES (?, ?, ?, ?, ?)', 
-    to_insert
-)
+        games_added += 1
 
-conn.commit()
+        if len(batch) >= 5000:
+            cursor.executemany('INSERT OR REPLACE INTO games (appid, title, description, tags, image) VALUES (?, ?, ?, ?, ?)', batch)
+            conn.commit()
+            batch = []
+            print(f"Added {games_added} games to sqlite database...")
+
+    if batch:
+        cursor.executemany('INSERT OR REPLACE INTO games (appid, title, description, tags, image) VALUES (?, ?, ?, ?, ?)', batch)
+        conn.commit()
+
+print(f"Done. Made an sqlite database with {games_added} games in it.")
 conn.close()

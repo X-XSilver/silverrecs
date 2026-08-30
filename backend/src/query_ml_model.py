@@ -30,10 +30,11 @@ async def get_recs(
     
 
     #sentence = f"{title} {tags}".replace( ",", "")
-    sentence = create_sentence(appid, tags)
-    print(f"Recs Query: {sentence}")
+    #sentence = create_sentence(appid, tags)
+    #print(f"Recs Query: {sentence}")
     
-    vector_2d = prepare_query(models.ft_model, sentence)
+    #vector_2d = prepare_query(models.ft_model, sentence)
+    vector_2d = prepare_query(models.ft_model, tags)
 
 
     distance, indices = models.index.search(vector_2d, 50)

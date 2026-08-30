@@ -23,13 +23,9 @@ cursor.execute('''
 ''')
 
 def tag_str(tags: dict) -> str:
-    string = ''
+    return json.dumps(tags) if tags else '{}'
 
-    for tag in tags:
-        string += tag + ', '
-    return string
-
-data_set_path = os.path.join(root_folder, "games.json")
+data_set_path = os.path.join(data_folder, "games.json")
 
 with open(data_set_path, 'r', encoding="utf8") as f:
     data = json.load(f)

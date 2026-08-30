@@ -1,5 +1,7 @@
 <script setup>
-defineProps({
+import { computed } from 'vue';
+
+const props = defineProps({
     appid: {type: Number, required: true},
     title: {type: String, required: true},
     coverImage: {type: String, required: true},
@@ -9,7 +11,19 @@ defineProps({
 
 defineEmits(['find-recs', 'steam-page'])
 
+const displayTags = computed(() => {
+    try {
+        const tagsDict = JSON.parse(props.tags);
 
+        const sortedTags = Object.entries(tagsDict)
+        .sort((a, b) => b[1] - a [1])
+        .map(([tag]) => tag);
+
+        return sortedTags.length > 0 ? sortedTags.join(', ') : 'No Tags';
+    } catch (error) {
+        return 'No Tags';
+    }
+});
 </script>
 
 <template>
@@ -22,7 +36,7 @@ defineEmits(['find-recs', 'steam-page'])
         <v-card-title class="bg-black bg-opacity-50 w-100">{{  title }}</v-card-title>
 
         <v-card-item>
-            <v-card-subtitle>{{tags}}</v-card-subtitle>
+            <v-card-subtitle>{{displayTags}}</v-card-subtitle>
         </v-card-item>
 
         <v-card-text>

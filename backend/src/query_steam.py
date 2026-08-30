@@ -55,6 +55,21 @@ def get_title(appid):
     return None
 
 
+"""def format_tags(tags):
+    
+    if not tags:
+        return ""
+    
+    sorted_tags = sorted(tags.items(), key=lambda x: x[1], reverse=True)
+    
+    tag_str = ''
+
+    for tag in sorted_tags:
+        tag_str += f"{tag[0]}, "
+
+    return tag_str"""
+
+
 def get_tags(appid):
 
     #print("Called get tags")
@@ -74,17 +89,7 @@ def get_tags(appid):
         #print(data)
         tags = data.get('tags', {})
 
-        if not tags:
-            return ""
-    
-        sorted_tags = sorted(tags.items(), key=lambda x: x[1], reverse=True)
-    
-        tag_str = ''
-
-        for tag in sorted_tags:
-            tag_str += f"{tag[0]}, "
-
-        return tag_str
+        return json.dumps(tags) if tags else '{}'
     
     return None
 

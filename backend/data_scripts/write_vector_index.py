@@ -46,9 +46,9 @@ def build_vectors():
 
     for appid, tags in rows:
        
-        sentence = create_sentence(appid, tags)
-        vector = get_sentence_vector(ft_model, sentence)
-
+        #sentence = create_sentence(appid, tags)
+        #vector = get_sentence_vector(ft_model, sentence)
+        vector = get_sentence_vector(ft_model, tags)
 
         id_list.append(appid)
         vector_list.append(vector)

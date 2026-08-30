@@ -1,6 +1,8 @@
+#import json
 import sqlite3
 import os
 
+#from .query_steam import format_tags
 
 
 def get_game_data(faiss_row_indices, current_appid, exclude_ids):
@@ -38,6 +40,10 @@ def get_game_data(faiss_row_indices, current_appid, exclude_ids):
             if fetched_appid in exclude_ids:
                 print(f"Skipping seen game {game['title']}")
                 continue
+
+            #tags_dict = json.loads(game['tags'])
+
+            #tags = format_tags(tags_dict)
 
             game_print = {
                 "appid": game['appid'],

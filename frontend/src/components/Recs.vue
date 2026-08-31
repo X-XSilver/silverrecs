@@ -84,6 +84,39 @@ const getRecs = async (appid, title, tags) => {
     }
 }
 
+const getClusterPeers = async (appid) => {
+    
+    //console.log("Got Recs!!!")
+    //userTop5.value = userTop5.value.filter(game => game.appid === appid)
+    isLoading.value = true;
+
+    try {
+        const path = `${backend_url}/api/explore_cluster/${appid}`
+        const response = await axios.get(path, {
+            params: {
+                exclude: seenAppIds.value.join(',')
+            }
+        })
+        
+        /*const newGames*/ userTop5.value = response.data.slice(0, 5).map(item => ({
+            appid: Number(item.data.appid),
+            title: item.data.title,
+            description: item.data.description,
+            tags: item.data.tags,
+            image: item.data.image
+        }));
+
+        trackSeenGames(userTop5.value);
+        //userTop5.value.push(...newGames);
+
+    } catch (error) {
+        console.error("Bad API: " +  error)
+    } finally {
+        isLoading.value = false;
+    }
+}
+
+
 const showSteamPage = (appid) => {
 
     const url = `https://store.steampowered.com/app/${appid}`
@@ -115,6 +148,7 @@ onMounted(loadInitGames);
                         :tags="game.tags"
                         @find-recs="getRecs"
                         @steam-page="showSteamPage"
+                        @explore-cluster="getClusterPeers"
                     />
                 </v-col>
             </template>

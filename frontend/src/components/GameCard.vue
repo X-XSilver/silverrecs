@@ -9,7 +9,7 @@ const props = defineProps({
     tags: {type: String, default: 'None'}
 })
 
-defineEmits(['find-recs', 'steam-page'])
+defineEmits(['find-recs', 'steam-page', 'explore-cluster'])
 
 const displayTags = computed(() => {
     try {
@@ -69,6 +69,19 @@ const displayTags = computed(() => {
             >
                 View on Steam
             </v-btn>
+        </v-card-actions>
+        <v-card-actions>
+            
+            <v-btn
+            color="primary"
+            variant="tonal"
+            block
+            prepend-icon="mdi-compass-outline"
+            @click="$emit('explore-cluster', appid)"
+            >
+                Explore More Games In This Cluster
+        </v-btn>
+
         </v-card-actions>
     </v-card>
 </template>

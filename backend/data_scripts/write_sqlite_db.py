@@ -16,6 +16,7 @@ cursor = conn.cursor()
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS games (
         appid INTEGER PRIMARY KEY,
+        clusterid INTEGER NULL,
         title TEXT,
         description TEXT,
         tags TEXT,

@@ -11,7 +11,7 @@ router = APIRouter()
 
 STEAM_VERIFY_URL = "https://steamcommunity.com/openid/login"
 ALGO = "HS256"
-
+DEV_MODE = os.environ.get("DEV_MODE", "false").lower() == "true"
 
 
 def create_access_token(steam_id: str):
@@ -33,11 +33,25 @@ async def verify_steam(request: Request):
 
     verify_query = raw_query.replace("openid.mode=id_res", "openid.mode=check_authentication")
 
-    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+    if DEV_MODE:
+        print("DEV_MODE active - skipping real Steam verification.")
+        is_valid = True
+    else:
+        headers = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Origin': 'https://steamcommunity.com',
+            'Referer': 'https://steamcommunity.com/openid/login'
+        }
 
-    response = requests.post(STEAM_VERIFY_URL, data=verify_query, headers=headers)
+        response = requests.post(STEAM_VERIFY_URL, data=verify_query, headers=headers)
+        print(f"Steam response: {response.text}")
+        print(f"Verify query sent: {verify_query}")
+        is_valid = "is_valid:true" in response.text
 
-    if "is_valid:true" not in response.text:
+    if not is_valid:
         raise HTTPException(status_code=400, detail="Steam authentication failed")
 
     steam_id = request.query_params.get("openid.claimed_id").split("/")[-1]

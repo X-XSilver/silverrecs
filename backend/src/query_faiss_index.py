@@ -37,12 +37,13 @@ async def get_recs(
     vector_2d = prepare_query(models.ft_model, tags)
 
 
-    distance, indices = models.index.search(vector_2d, 50)
+    distances, indices = models.index.search(vector_2d, 50)
 
     all_nearest_row_indices = [int(idx) for idx in indices[0]]
+    scores = {int(idx): float(dist) for idx, dist in zip(indices[0], distances[0])}
 
     print(f"Scanning 50 FAISS positions for fresh matches...")
 
-    fresh_recs = get_game_data(all_nearest_row_indices, appid, exclude_ids)
+    fresh_recs = get_game_data(all_nearest_row_indices, appid, exclude_ids, scores)
 
     return fresh_recs

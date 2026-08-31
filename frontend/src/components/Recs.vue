@@ -1,8 +1,13 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import GameCard from './GameCard.vue';
+import SimilarityChart from './SimilarityChart.vue'
 import { useAuthStore } from '../stores/auth';
 import axios from 'axios';
+
+const goToVisuals = () => {
+    window.location.hash = '#/visuals';
+}
 
 const auth = useAuthStore();
 
@@ -38,7 +43,8 @@ const loadInitGames = async () => {
             title: item.data.title,
             description: item.data.description,
             tags: item.data.tags,
-            image: item.data.image
+            image: item.data.image,
+            similarity: item.data.similarity
         }));
 
         trackSeenGames(userTop5.value);
@@ -71,7 +77,8 @@ const getRecs = async (appid, title, tags) => {
             title: item.data.title,
             description: item.data.description,
             tags: item.data.tags,
-            image: item.data.image
+            image: item.data.image,
+            similarity: item.data.similarity
         }));
 
         trackSeenGames(userTop5.value);
@@ -103,7 +110,8 @@ const getClusterPeers = async (appid) => {
             title: item.data.title,
             description: item.data.description,
             tags: item.data.tags,
-            image: item.data.image
+            image: item.data.image,
+            similarity: item.data.similarity
         }));
 
         trackSeenGames(userTop5.value);
@@ -128,6 +136,14 @@ onMounted(loadInitGames);
 </script>
 <template>
     <v-container>
+        <v-btn variant="tonal" color="primary" prepend-icon="mdi-chart-line" @click="goToVisuals">
+            See Cluster Graphs (2 out of 3 Visualizations)
+        </v-btn>
+        <br/>
+        <br/>
+        <SimilarityChart :games="userTop5" />
+        <br/>
+        <br/>
         <v-row>
             <template v-if="isLoading">
                 <v-col v-for="n in 5" :key="'skeleton-' + n" cols="12" sm="5" md="5" lg="5">

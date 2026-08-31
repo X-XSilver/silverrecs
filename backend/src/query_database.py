@@ -11,7 +11,7 @@ data_folder = os.path.join(root_folder, "data")
 DB_PATH = os.path.join(data_folder, "steam_games.db")
 
 
-def get_game_data(faiss_row_indices, current_appid, exclude_ids):
+def get_game_data(faiss_row_indices, current_appid, exclude_ids, scores=None):
     
     game_data = []
     
@@ -49,7 +49,8 @@ def get_game_data(faiss_row_indices, current_appid, exclude_ids):
                 "title": game['title'],
                 "tags": game['tags'] if len(game['tags']) > 0 else "No Tags",
                 "description": game['description'] if len(game['description']) > 0 else "No Description",
-                "image": game['image']
+                "image": game['image'],
+                "similarity": round(scores[fetched_appid], 4) if scores and fetched_appid in scores else None
             }
 
             game_data.append({"id": len(game_data) + 1, "data": game_print})

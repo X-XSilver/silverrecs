@@ -1,6 +1,9 @@
 <script setup>
 import imageUrl from '../assets/sits_01.png'
 
+const goToVisuals = () => {
+    window.location.hash = '#/visuals';
+}
 const defaultRecs = () => {
     window.location.hash = '#/recs';
 }
@@ -27,11 +30,14 @@ const loginWithSteam = () => {
 
 <template>
   <div>
-    <h1>Silver Plugs</h1>
+    <h1>Silver's Game Recommendation Engine</h1>
+    <br/>
+    <button @click="goToVisuals">See Cluster Graphics(2 out of 3 Visualizations)</button>
+    <br/>
     <br/>
     <div><input type="image" :src="imageUrl" alt="WHYYYY" @click="loginWithSteam"/></div>
     <br/>
     <br/>
-    <button @click="defaultRecs">Use Sample Account</button>
+    <button @click="defaultRecs">Use Sample Account (1 out of 3 Visualizations)</button>
   </div>
 </template>

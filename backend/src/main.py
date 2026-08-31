@@ -11,7 +11,8 @@ load_dotenv(find_dotenv())
 
 from .query_steam import router as steam_api_router
 from .auth import router as auth_router
-from .query_ml_model import router as ml_router, models
+from .query_faiss_index import router as faiss_router, models
+from .query_kmeans_clusters import router as kmeans_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -50,7 +51,8 @@ app = FastAPI(lifespan=lifespan)
 
 app.include_router(steam_api_router)
 app.include_router(auth_router)
-app.include_router(ml_router)
+app.include_router(faiss_router)
+app.include_router(kmeans_router)
 
 
 

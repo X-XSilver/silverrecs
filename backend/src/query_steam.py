@@ -9,7 +9,6 @@ router = APIRouter()
 
 def get_owned_games(api_key, steam_id):
 
-    #print("Called get owned games")
     url = f"http://api.steampowered.com/IPlayerService/GetOwnedGames/v1/"
 
     params = {
@@ -31,7 +30,6 @@ def get_owned_games(api_key, steam_id):
 
 def get_title(appid):
 
-    #print("Called get title")
 
     url = "https://steamspy.com/api.php"
 
@@ -55,24 +53,8 @@ def get_title(appid):
     return None
 
 
-"""def format_tags(tags):
-    
-    if not tags:
-        return ""
-    
-    sorted_tags = sorted(tags.items(), key=lambda x: x[1], reverse=True)
-    
-    tag_str = ''
-
-    for tag in sorted_tags:
-        tag_str += f"{tag[0]}, "
-
-    return tag_str"""
-
-
 def get_tags(appid):
 
-    #print("Called get tags")
 
     url = "https://steamspy.com/api.php"
 
@@ -86,7 +68,6 @@ def get_tags(appid):
     if response.status_code == 200:
         data = response.json()
 
-        #print(data)
         tags = data.get('tags', {})
 
         return json.dumps(tags) if tags else '{}'
@@ -96,7 +77,6 @@ def get_tags(appid):
 
 def get_description(appid):
 
-    #print("Called get description")
     url = f"https://store.steampowered.com/api/appdetails?appids={appid}"
 
     
@@ -112,9 +92,6 @@ def get_description(appid):
         if id_str in data and data[id_str].get("success"):
             description = data[id_str]["data"].get("short_description", "No description found")
 
-
-        #print(f"This is the descriptiom {description}")
-
         if not description:
             return "Failed :("
     
@@ -126,7 +103,6 @@ def get_description(appid):
 @router.get("/api/game-cover/{appid}")
 async def get_image(appid):
 
-    #print("Called get image")
 
     url = f"https://cdn.akamai.steamstatic.com/steam/apps/{appid}/header.jpg"
 
@@ -183,13 +159,11 @@ def send_library_data(steam_id):
 
     if not api_key:
         raise ValueError("Missing STEAM_API_KEY environment variable!")
-    #print(steam_id)
     games = get_owned_games(api_key, steam_id)
 
     sorted_games = sorted(games, key=lambda x: x['playtime_forever'], reverse=True)
     
     sorted_games = sorted_games[:5]
-    #print(sorted_games)
 
     appids = [game['appid'] for game in sorted_games]
 

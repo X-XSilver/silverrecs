@@ -47,8 +47,6 @@ async def verify_steam(request: Request):
         }
 
         response = requests.post(STEAM_VERIFY_URL, data=verify_query, headers=headers)
-        print(f"Steam response: {response.text}")
-        print(f"Verify query sent: {verify_query}")
         is_valid = "is_valid:true" in response.text
 
     if not is_valid:

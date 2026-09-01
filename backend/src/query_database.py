@@ -40,10 +40,6 @@ def get_game_data(faiss_row_indices, current_appid, exclude_ids, scores=None):
                 print(f"Skipping seen game {game['title']}")
                 continue
 
-            #tags_dict = json.loads(game['tags'])
-
-            #tags = format_tags(tags_dict)
-
             game_print = {
                 "appid": game['appid'],
                 "title": game['title'],

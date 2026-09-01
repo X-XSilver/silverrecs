@@ -19,7 +19,6 @@ const routes = {
 
 const currentPath = ref(window.location.hash || '#/');
 
-const token = ref(null)
 
 
 const currentView = computed(() => {

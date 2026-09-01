@@ -29,13 +29,7 @@ async def get_recs(
         exclude_ids = [int(x) for x in exclude.split(",") if x.isdigit()]
     
 
-    #sentence = f"{title} {tags}".replace( ",", "")
-    #sentence = create_sentence(appid, tags)
-    #print(f"Recs Query: {sentence}")
-    
-    #vector_2d = prepare_query(models.ft_model, sentence)
     vector_2d = prepare_query(models.ft_model, tags)
-
 
     distances, indices = models.index.search(vector_2d, 50)
 

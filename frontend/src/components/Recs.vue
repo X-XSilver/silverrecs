@@ -37,7 +37,6 @@ const loadInitGames = async () => {
         const path = `${backend_url}/api/load_user/${auth.steamId}?cb=${timestamp}`;
 
         const response = await axios.get(path)
-        //console.log(response.data.slice(0, 5))
         userTop5.value = response.data.slice(0, 5).map(item => ({
             appid: Number(item.data.appid),
             title: item.data.title,
@@ -58,8 +57,6 @@ const loadInitGames = async () => {
 
 const getRecs = async (appid, title, tags) => {
     
-    //console.log("Got Recs!!!")
-    //userTop5.value = userTop5.value.filter(game => game.appid === appid)
     isLoading.value = true;
 
     try {
@@ -72,7 +69,7 @@ const getRecs = async (appid, title, tags) => {
             }
         })
         
-        /*const newGames*/ userTop5.value = response.data.slice(0, 5).map(item => ({
+        userTop5.value = response.data.slice(0, 5).map(item => ({
             appid: Number(item.data.appid),
             title: item.data.title,
             description: item.data.description,
@@ -82,7 +79,6 @@ const getRecs = async (appid, title, tags) => {
         }));
 
         trackSeenGames(userTop5.value);
-        //userTop5.value.push(...newGames);
 
     } catch (error) {
         console.error("Bad API: " +  error)
@@ -93,8 +89,6 @@ const getRecs = async (appid, title, tags) => {
 
 const getClusterPeers = async (appid) => {
     
-    //console.log("Got Recs!!!")
-    //userTop5.value = userTop5.value.filter(game => game.appid === appid)
     isLoading.value = true;
 
     try {
@@ -105,7 +99,7 @@ const getClusterPeers = async (appid) => {
             }
         })
         
-        /*const newGames*/ userTop5.value = response.data.slice(0, 5).map(item => ({
+        userTop5.value = response.data.slice(0, 5).map(item => ({
             appid: Number(item.data.appid),
             title: item.data.title,
             description: item.data.description,
@@ -115,7 +109,6 @@ const getClusterPeers = async (appid) => {
         }));
 
         trackSeenGames(userTop5.value);
-        //userTop5.value.push(...newGames);
 
     } catch (error) {
         console.error("Bad API: " +  error)

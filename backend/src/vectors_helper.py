@@ -3,13 +3,6 @@ import numpy as np
 from num2words import num2words
 
 
-
-def create_sentence(appid, tags):
-    safe_game_id = f"gameid{num2words(appid)}" if appid else ""
-    safe_tags = tags if tags else ""
-    return f"{safe_game_id} {safe_tags}".replace("\n", " ").strip()
-
-
 def get_sentence_vector(model, tags_str):
     
     try:

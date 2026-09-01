@@ -12,7 +12,7 @@ src_folder = os.path.join(root_folder, "src")
 if src_folder not in sys.path:
     sys.path.append(src_folder)
 
-from vectors_helper import create_sentence, get_sentence_vector
+from vectors_helper import get_sentence_vector
 
 
 DB_PATH = os.path.join(data_folder, "steam_games.db")
@@ -46,8 +46,6 @@ def build_vectors():
 
     for appid, tags in rows:
        
-        #sentence = create_sentence(appid, tags)
-        #vector = get_sentence_vector(ft_model, sentence)
         vector = get_sentence_vector(ft_model, tags)
 
         id_list.append(appid)

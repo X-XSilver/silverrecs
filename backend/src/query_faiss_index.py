@@ -15,7 +15,7 @@ from num2words import num2words
 from fastapi import APIRouter, Query
 from typing import Optional
 from .query_database import get_game_data
-from .vectors_helper import create_sentence, prepare_query
+from .vectors_helper import prepare_query
 
 
 router = APIRouter()

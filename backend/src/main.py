@@ -38,17 +38,14 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 
-#origins = os.getenv("ALLOWED_ORIGINS", "http://127.0.0.1, http://localhost:5173, https://silverrecs.pages.dev, https://silverrecs.com, https://www.silverrecs.com")
+@app.get("/api/health")
+async def health_check():
+    return {
+        "status": "ok",
+        "faiss_index_loaded": models.index is not None,
+        "fasttext_model_loaded": models.ft_model is not None,
+    }
 
-#origins_list = [origin.strip() for origin in origins.split(",")]
-
-#app.add_middleware(
-#    CORSMiddleware,
-#    allow_origins=origins_list,
-#    allow_credentials=True,
-#    allow_methods=["*"],
-#    allow_headers=["*"],
-#)
 
 app.mount("/api/static-data", StaticFiles(directory=data_folder), name="static-data")
 

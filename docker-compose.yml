@@ -3,8 +3,10 @@ services:
     build: ./frontend
     depends_on:
       - backend
+    restart: unless-stopped
   backend:
     build: ./backend
+    restart: unless-stopped
     ports:
       - "8000:8000"
     volumes:

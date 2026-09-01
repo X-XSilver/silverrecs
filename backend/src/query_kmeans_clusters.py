@@ -1,3 +1,11 @@
+"""
+Satisfies:
+    - one descriptive method
+    - decision support functionality
+    - implementation of interactive queries
+
+This script acts as a backend endpoint for cluster exploration 
+"""
 from fastapi import APIRouter
 from typing import Optional 
 from .query_database import get_cluster_peers

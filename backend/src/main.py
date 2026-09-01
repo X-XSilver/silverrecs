@@ -1,3 +1,16 @@
+"""
+Satisfies:
+    - implementation of interactive queries
+    - tools to monitor and maintain the product
+
+This script routes all the endpoints on the backend
+allowing for users to seemlessly complete their
+queries as the interact with the various buttons
+on the website. It also implements a /api/health
+endpoint that monitors the health of the backend
+so it can be troubleshot by docker if something 
+goes wrong.
+"""
 import faiss
 import fasttext
 import compress_fasttext

@@ -1,3 +1,11 @@
+"""
+Satisfies:
+    - collected or available datasets
+    - ability to support featurizing, parsing, cleaning, and wrangling datasets
+
+This script takes database of games in .json format and turns it into a .db sqlite database for fast use.
+The script truncates unnecassary fields and makes a light table of only what is necessary.
+"""
 import sqlite3
 import ijson
 import json

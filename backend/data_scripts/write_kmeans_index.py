@@ -1,3 +1,14 @@
+"""
+Satisfies:
+    - one descriptive method
+    - implementation of machine-learning methods and algorithms
+
+This script takes .npz matrix of tag vectors, and clusters the
+vectors that have significant values(not all 0s). The amount of clusters, 
+6, was determined after testing sillouhette scores (apperant in Visualization 2)
+These clusters can be explored by the user for themetically similar games, not 
+the nearest possible recommendations, but an avenue for looser thematic exploration.
+"""
 import sqlite3
 import numpy as np
 import os

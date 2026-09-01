@@ -1,3 +1,4 @@
+# Satisfies:  tools to monitor and maintain the product, HEALTHCHECK monitors backend health
 FROM python:3.8-slim
 
 RUN apt-get update && apt-get install -y \

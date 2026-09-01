@@ -1,3 +1,15 @@
+"""
+Satisfies:
+    - one nondescriptive (prescriptive) method
+    - implementation of interactive queries
+    - implementation of machine-learning methods and algorithms
+    - functionalities to evaluate the accuracy of the data product
+
+This script takes the user given query about a specific game and
+returns the 5 most similar games to the frontend. The similarity
+score is also passed for recording the accuracy of the recommendations.
+The similarity is determined using faiss, a similarity search library.
+"""
 import numpy as np
 from num2words import num2words
 from fastapi import APIRouter, Query

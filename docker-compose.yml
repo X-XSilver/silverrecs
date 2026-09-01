@@ -1,3 +1,4 @@
+# Satisfies:  tools to monitor and maintain the product, any services that crash try to restart if possible
 services:
   frontend:
     build: ./frontend

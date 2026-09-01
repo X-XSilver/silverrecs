@@ -1,3 +1,14 @@
+"""
+Satisfies:
+    - one nondescriptive (prescriptive) method
+    - implementation of machine-learning methods and algorithms
+
+This script takes .npz matrix of tag vectors, and places them in an faiss vector
+space. It computes distance in the 300 dimensional vector space using cosine
+inner product matching, this produces distances that are 0.00 to 1.00 scores
+closer vectors have a score closer to 1.00. This allows for later nearest
+neighbor searches across the vector space.
+"""
 import numpy as np
 import faiss
 import os

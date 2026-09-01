@@ -1,3 +1,11 @@
+<!-- 
+Satisfies:
+    - a user-friendly, functional dashboard that includes three visualization types (1 of 3)
+    - functionalities to evaluate the accuracy of the data product
+
+This script implements the dynamic generation of the similarity scores chart based on the user's
+current query. this chart can be referenced to determine the accuracy of the faiss recommendations.
+-->
 <script setup>
 import { computed } from 'vue'
 import { Bar } from 'vue-chartjs'

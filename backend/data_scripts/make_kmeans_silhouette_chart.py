@@ -1,3 +1,14 @@
+"""
+Satisfies:
+    - data visualization functionalities for data exploration and inspection
+    - functionalities to evaluate the accuracy of the data product
+    - a user-friendly, functional dashboard that includes three visualization types (1 of 3)
+
+This script tests various k values for the k means clusters and calculates the resulting silhouette
+score, a metric for cluster cohesion used to test ml method effectiveness. The resulting
+graph was used to pick the k value of 6 which is a good balance between cluster diversity
+qualitatively when using the website, and a peak in silhouette score.
+"""
 import numpy as np
 import os
 import sys

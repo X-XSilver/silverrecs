@@ -1,3 +1,17 @@
+<!-- 
+Satisfies:
+    - decision support functionality
+    - implementation of interactive queries
+    - functionalities to evaluate the accuracy of the data product
+    - a user-friendly, functional dashboard that includes three visualization types (1 of 3)
+
+This script implements on the frontend the interactions with the ml model through queries.
+Specifically, faiss similarity search can be performed via one button, a k means cluster
+can be explored with another button, and the full game profile can be seen on the Steam
+website. This page aslo host one of the Visualizations, a dynamic one that produces a 
+chart of the similarity scores of the 5 games nearest to the query. This also acts
+as an accuracy confirmation.
+-->
 <script setup>
 import { ref, onMounted } from 'vue';
 import GameCard from './GameCard.vue';

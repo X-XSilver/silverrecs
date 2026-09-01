@@ -1,3 +1,14 @@
+<!-- 
+Satisfies:
+    - decision support functionality
+    - industry-appropriate security features
+
+This script allows the user to decide if they want to login with Steam,
+use the provided sample account to interact with the recommender, or
+to look at 2 of the data visualizations for the K Means Clusters.
+The authentication for the login method is a secure handshake with
+the Steam api.
+-->
 <script setup>
 import imageUrl from '../assets/sits_01.png'
 

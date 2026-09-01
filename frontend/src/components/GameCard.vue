@@ -1,3 +1,10 @@
+<!-- 
+Satisfies:
+    - decision support functionality
+
+This script implements the gamecards that the users use to press buttons
+and send queries to the ml model.
+-->
 <script setup>
 import { computed } from 'vue';
 

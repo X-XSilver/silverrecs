@@ -1,3 +1,12 @@
+"""
+Satisfies:
+    - industry-appropriate security features
+
+This script completes the authentication handshake between the Steam API
+and the app to allow for user's to login to their Steam account.
+It uses a JWT Token for further security standards. This HS256 token
+is an industry standard authentication artifact.
+"""
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import RedirectResponse
 from jose import jwt

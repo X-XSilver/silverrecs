@@ -1,3 +1,13 @@
+"""
+Satisfies:
+    - ability to support featurizing, parsing, cleaning, and wrangling datasets
+    - methods and algorithms supporting data exploration and preparation
+    - implementation of machine-learning methods and algorithms
+
+This script takes tags from the games in the sqlite db and turns them into vector, appid pairs.
+These vectors are made using fasttext a language model that turns sentences, our tags, into
+vectors. All the vectors are put in a .nps file to be used later in the data pipeline.
+"""
 import sqlite3
 import compress_fasttext
 import numpy as np

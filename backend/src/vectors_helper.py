@@ -1,3 +1,12 @@
+"""
+Satisfies:
+    - implementation of machine-learning methods and algorithms
+    - ability to support featurizing, parsing, cleaning, and wrangling datasets
+
+This script takes the given tags and turns them into a vectors that describes the
+tags all averaged out by weight. This vectors acts as the coordinate of that 'game'
+in the 300 dimension vector space. Turns strings, into usable search vectors.
+"""
 import json
 import numpy as np
 from num2words import num2words

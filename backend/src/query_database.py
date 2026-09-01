@@ -1,8 +1,13 @@
-#import json
+"""
+Satisfies:
+    - industry-appropriate security features
+    - decision support functionality
+
+This script uses the common industry practice of parametrized queries
+in order to achieve both security and implement user decison making.
+"""
 import sqlite3
 import os
-
-#from .query_steam import format_tags
 
 src_folder = os.path.dirname(os.path.abspath(__file__))
 root_folder = os.path.dirname(src_folder)

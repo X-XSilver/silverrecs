@@ -1,3 +1,14 @@
+"""
+Satisfies:
+    - data visualization functionalities for data exploration and inspection
+    - functionalities to evaluate the accuracy of the data product
+    - a user-friendly, functional dashboard that includes three visualization types (1 of 3)
+
+This script takes creates multiple scatter plots that show the distribution of points in
+each closter. PCA flattening is used to turn the 300 dimension vector space into a 2d
+space of points, these are plotted by color for each cluster. The difference in cluster
+shapes and position shows the accuracy of the k means method applied to data.
+"""
 import sqlite3
 import numpy as np
 import os

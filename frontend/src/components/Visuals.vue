@@ -1,3 +1,11 @@
+<!-- 
+Satisfies:
+    -  a user-friendly, functional dashboard that includes three visualization types (2 of 3)
+
+This script implements the projection of our kmeans PCA chart and our kmeans Silhouette score
+chart. The user can navigate to this page to view the data and navigate back to the previous
+page when finished.
+-->
 <script setup>
 const backend_url = import.meta.env.VITE_API_URL;
 

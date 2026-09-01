@@ -1,3 +1,13 @@
+"""
+Satisfies:
+    - collected or available datasets
+    - decision support functionality
+
+This script multiple Steam APIs to serve the user information
+about their profile, their game library, or other games on the
+Steam platform. This data satisfies the user need for recommendations.
+This data also allows the user to decide between games when searching.
+"""
 import requests
 import json
 import httpx

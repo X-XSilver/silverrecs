@@ -43,7 +43,7 @@ const loginWithSteam = () => {
   <div>
     <h1>Silver's Game Recommendation Engine</h1>
     <br/>
-    <button @click="goToVisuals">See Cluster Graphics(2 out of 3 Visualizations)</button>
+    <button @click="goToVisuals">See Cluster Graphs(2 out of 3 Visualizations)</button>
     <br/>
     <br/>
     <div><input type="image" :src="imageUrl" alt="WHYYYY" @click="loginWithSteam"/></div>

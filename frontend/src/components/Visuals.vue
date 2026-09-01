@@ -22,7 +22,7 @@ const goBack = () => {
 <template>
     <v-container>
         <v-btn variant="text" prepend-icon="mdi-arrow-left" @click="goBack">
-            Back to Reccomendations
+            Back to Recommendations
         </v-btn>
 
         <h2>Game Clusters (PCA Projection)</h2>
